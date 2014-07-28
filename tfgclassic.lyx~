@@ -1,0 +1,7473 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language spanish
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 2cm
+\rightmargin 3cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle plain
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Análisis econométrico de series temporales en Gretl: La Ley de Okun
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\noindent
+Licenciado bajo 
+\begin_inset CommandInset href
+LatexCommand href
+name "Creative Commons Attribution-NonCommercial-ShareAlike 4.0."
+target "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Eduardo Calvo del Río
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\noindent
+Email: 
+\begin_inset CommandInset href
+LatexCommand href
+name "eduardo.calvo.rio@alumnos.uva.es"
+target "eduardo.calvo.rio@alumnos.uva.es"
+type "mailto:"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+Gretl es un software econométrico de código abierto que se presenta como
+ una alternativa muy potente al software comercial.
+ El objeto de este trabajo es demostrar la facilidad y versatilidad de este
+ programa en el análisis econométrico de series temporales.
+ Para ello se estudiará la Ley de Okun que es aquella relación existente
+ entre la variación de la tasa de crecimiento y la tasa de paro en una economía.
+\shape smallcaps
+
+\begin_inset Newline newline
+\end_inset
+
+JEL Classification:
+\shape default
+ C22, C51, E24.
+\end_layout
+
+\begin_layout Section
+Introducción
+\end_layout
+
+\begin_layout Subsection
+Gretl
+\end_layout
+
+\begin_layout Standard
+Gretl (Gnu Regression, Econometrics and Time-series Library) es un paquete
+ de software para análisis econométrico escrito en el lenguaje de programación
+ C y distribuido bajo la licencia GPL de la Free Software Foundation.
+ 
+\end_layout
+
+\begin_layout Standard
+El código de Gretl se deriva del programa ESL (Econometrics Software Library)
+ escrito por el profesor Ramu Ramanathan de la Universidad de California
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ramanathan1998introductory"
+
+\end_inset
+
+.
+ La distribución de Gretl como software libre ha permitido que multitud
+ de usuarios participen en su desarrollo, depuración del código, traducción
+ y divulgación por ámbitos académicos y empresariales.
+\end_layout
+
+\begin_layout Standard
+Gretl es un software especialmente útil en la enseñanza de la Econometría
+ porque incluye los ejemplos y ejercicios de los principales manuales de
+ la materia.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+La lista incluye los manuales de 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "wooldridge2006introduccion,gujarati2010econometria,greene1999analisis"
+
+\end_inset
+
+, entre otros.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Entre las ventajas de Gretl respecto de otras soluciones comerciales está
+ su arquitectura multiplataforma que permite instalarlo en distintos sistemas
+ operativos y la dualidad de interfaz que hace posible su ejecución en modo
+ gráfico pero también en modo de línea de comandos (CLI).
+ Además, Gretl ofrece toda una serie de modelos econométricos (MCO, MC2E,
+ ARIMA, GARCH, GMM, VI...) que lo dotan de un alto grado de funcionalidad.
+\end_layout
+
+\begin_layout Section
+Revisión del estado actual del tema
+\end_layout
+
+\begin_layout Subsection
+La Ley de Okun
+\end_layout
+
+\begin_layout Standard
+El ejemplo utilizado para mostrar la funcionalidad y flexibilidad de Gretl
+ es la Ley de Okun.
+ Esta es una relación que se ha venido dando entre la tasa de crecimiento
+ de una economía y su tasa de desempleo.
+ 
+\end_layout
+
+\begin_layout Standard
+Esta Ley ha sido objeto de numerosos trabajos y se encuentra en la práctica
+ totalidad de manuales de Macroeconomía por su amplia difusión y aceptación
+ por todas las corrientes del pensamiento económico.
+ La actual situación laboral en España es lo que me ha llevado a elegir
+ esta regularidad como objeto de estudio y análisis.
+\end_layout
+
+\begin_layout Standard
+Arthur Okun, economista y miembro del Consejo de Asesores Económicos del
+ presidente John F.
+ Kennedy, reconoció esta regularidad en 1962 con datos trimestrales de los
+ Estados Unidos.
+ 
+\end_layout
+
+\begin_layout Standard
+Okun tomó tres vías diferentes 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "okun1963potential"
+
+\end_inset
+
+ para estimar la relación entre la tasa de paro y de crecimiento de la producció
+n.
+\end_layout
+
+\begin_layout Subsubsection
+Ley de Okun I
+\end_layout
+
+\begin_layout Standard
+En primer lugar, Okun estimó un modelo que relacionaba las variaciones de
+ la tasa de paro en dos períodos consecutivos y la tasa de crecimiento de
+ la producción
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{t}-u_{t-1}=\beta_{0}-\beta_{Y}g_{Yt}\label{eq:okuni1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\begin_inset Formula $u_{t}$
+\end_inset
+
+ es la tasa de paro y 
+\begin_inset Formula $g_{Yt}$
+\end_inset
+
+ la tasa de crecimiento de la producción en el periodo 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ Si la variación de la tasa de paro es nula, el valor de 
+\begin_inset Formula $g_{Yt}$
+\end_inset
+
+ representa la tasa de crecimiento natural de la producción en el periodo
+ 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ Lo denotamos 
+\begin_inset Formula $\overline{g}_{Yt}$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "blanchard2006macroeconomia"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\beta_{0}-\beta_{Y}g_{Yt}=0;\;\overline{g}_{Yt}=\frac{\beta_{0}}{\beta_{Y}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sustituyendo 
+\begin_inset Formula $\beta_{0}$
+\end_inset
+
+ en la ecuación 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:okuni1"
+
+\end_inset
+
+, se obtiene que la variación de la tasa de paro es proporcional a la diferencia
+ entre la tasa de crecimiento real y natural de la producción.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{t}-u_{t-1}=-\beta_{Y}\left(g_{Yt}-\overline{g}_{Yt}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Ley de Okun II
+\end_layout
+
+\begin_layout Standard
+Un enfoque alternativo llevó a Okun a plantear un modelo en el que relacionaba
+ la tasa de paro con la diferencia entre la producción potencial y real.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{t}=\lambda_{0}+\lambda_{y}\frac{Y_{t}^{p}-Y_{t}}{Y_{t}^{p}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El problema de este modelo es que la producción potencial 
+\begin_inset Formula $Y_{t}^{p}$
+\end_inset
+
+ es una variable desconocida a la que Okun le asigna un valor de forma subjetiva
+ y arbitraria aunque posteriormente se han utilizado procedimientos estadísticos
+ como el filtro H-P para estimar su valor 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "belmonte2004formulaciones"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Ley de Okun III
+\end_layout
+
+\begin_layout Standard
+La última versión del modelo que Okun propone no parte de la tasa de paro
+ sino de la tasa de ocupación potencial 
+\begin_inset Formula $e_{t}^{p}$
+\end_inset
+
+ y real 
+\begin_inset Formula $e_{t}$
+\end_inset
+
+.
+ Okun estimó que la relación entre ambas era proporcional al cociente entre
+ la producción potencial y real.
+ Es decir, que la eficiencia del trabajo es proporcional a la eficiencia
+ de la producción.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{e_{t}}{e_{t}^{p}}=\left(\frac{Y_{t}}{Y_{t}^{p}}\right)^{\sigma_{Y}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\begin_inset Formula $\sigma_{Y}$
+\end_inset
+
+ es la elasticidad del empleo respecto de la producción en valor absoluto.
+\end_layout
+
+\begin_layout Standard
+A pesar de las diferencias conceptuales existentes entre las tres formulaciones,
+ los valores estimados son muy similares 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "okun1963potential"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\beta_{Y}=0.3$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{y}=0$
+\end_inset
+
+, 36 y 
+\begin_inset Formula $\sigma_{Y}=0.35$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+La Ley de Okun en este trabajo
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:okun generalizado"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Para el análisis econométrico de la Ley de Okun se va a partir de una formulació
+n más reciente de la primera versión 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "belmonte2004formulaciones"
+
+\end_inset
+
+.
+ Este modelo es una generalización que incluye retardos tanto en la variable
+ independiente como en la dependiente.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta u_{t}=-\beta_{0}+\sum_{1}^{P}{\beta_{up}\Delta u_{t-p}}+\sum_{0}^{Q}{\beta_{yp}\Delta\ln{\left(y_{t-q}\right)}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Metodología
+\end_layout
+
+\begin_layout Standard
+Es importante tener claros todos los conceptos que intervienen en el análisis
+ econométrico de series temporales relacionados con esta investigación.
+ En las siguientes secciones se van a repasar y clarificar todos estos conocimie
+ntos previos que permitirán realizar un análisis econométrico adecuado a
+ partir de series cronológicas.
+\end_layout
+
+\begin_layout Subsection
+Esquema autorregresivo de primer orden
+\end_layout
+
+\begin_layout Standard
+Parece conveniente empezar este estudio de la series temporales a partir
+ de un proceso estocástico muy habitual.
+ Se trata del esquema autorregresivo de primer orden, también denominado
+ 
+\begin_inset Formula $AR(1)$
+\end_inset
+
+, para abreviar.
+ Como explican 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "gujarati2010econometria"
+
+\end_inset
+
+, en estos procesos, la variable dependiente es una variable estocástica
+ formada por su valor en el momento anterior y por un término de error.
+ Además, puede aparecer un término constante u ordenada en el origen.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+Y_{t} & = & \alpha_{0}+\varphi Y_{t-1}+\varepsilon_{t}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La variable retardada está ponderada por un valor 
+\begin_inset Formula $\varphi$
+\end_inset
+
+ en el intervalo 
+\begin_inset Formula $\left[-1,\,1\right]$
+\end_inset
+
+.
+ Igualmente, se puede generalizar el proceso autorregresivo para órdenes
+ superiores a uno, añadiendo los retardos pertinentes.
+ Por lo tanto se obtiene un esquema 
+\begin_inset Formula $AR(p)$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+Y_{t} & = & \alpha_{0}+\sum_{i=1}^{p}\varphi_{i}Y_{t-i}+\varepsilon_{t}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El sistema de scripts de Gretl permite generar simulaciones computacionales
+ de cualquier fenómeno estadístico.
+ Se ha elaborado el siguiente script
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+La ejecución de un script se realiza con el comando 
+\family typewriter
+run [archivo.inp]
+\end_layout
+
+\end_inset
+
+ para dibujar gráficos de modelos 
+\begin_inset Formula $AR(1)$
+\end_inset
+
+ con distintos valores de 
+\begin_inset Formula $\varphi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# fija el tamaño muestral y lo clasifica como temporal
+\end_layout
+
+\begin_layout Plain Layout
+
+nulldata 100
+\end_layout
+
+\begin_layout Plain Layout
+
+setobs 1 1 --time-series
+\end_layout
+
+\begin_layout Plain Layout
+
+genr time
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# semilla de números aleatorios
+\end_layout
+
+\begin_layout Plain Layout
+
+set seed 7777777
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# parámetros fijos
+\end_layout
+
+\begin_layout Plain Layout
+
+scalar phi = .5
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# generación de series
+\end_layout
+
+\begin_layout Plain Layout
+
+series y = uniform()
+\end_layout
+
+\begin_layout Plain Layout
+
+series e = normal()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# modelo AR(1)
+\end_layout
+
+\begin_layout Plain Layout
+
+series y = phi * y(-1) + e
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# representación gráfica
+\end_layout
+
+\begin_layout Plain Layout
+
+gnuplot y --with-lines --time-series
+\end_layout
+
+\begin_layout Plain Layout
+
+corrgm y 50
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Que genera los gráficos siguientes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ar1positivo.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename correlogramaar1positivo.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Formula $AR(1),\,\varphi=0.5$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ar1negativo.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename correlogramaar1negativo.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Formula $AR(1),\,\varphi=-0.5$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Caminata aleatoria
+\end_layout
+
+\begin_layout Standard
+Es una situación particular de esquema autorregresivo.
+ Concretamente, se produce cuando 
+\begin_inset Formula $\varphi=1$
+\end_inset
+
+ y por tanto 
+\begin_inset Formula $Y_{t}=Y_{t-1}+\varepsilon_{t}$
+\end_inset
+
+.
+ Para ver mejor sus propiedades, es conveniente desarrollar su ecuación
+ fundamental desde la primera observación.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{1}=Y_{0}+\varepsilon_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{2}=Y_{1}+\varepsilon_{2}=Y_{0}+\varepsilon_{1}+\varepsilon_{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vdots
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=Y_{0}+\sum_{i=1}^{t}\varepsilon_{i}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Con cada nueva iteración del proceso, el error aumenta, en valor absoluto.
+ Esto se refleja en la varianza de la caminata aleatoria que es 
+\begin_inset Formula $VAR\left(Y_{t}\right)=\sigma^{2}t$
+\end_inset
+
+ por lo que esta serie no estará acotada.
+ Reconfigurando el script del 
+\begin_inset Formula $AR(1)$
+\end_inset
+
+ se puede generar un gráfico que ilustra las propiedades de este proceso
+ estocástico.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename caminata.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename correlogramacaminata.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Caminata aleatoria sin deriva
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ahora bien, hay otro tipo de caminata aleatoria en la que se incluye un
+ término constante.
+ Se denomina caminata aleatoria con deriva y sus propiedades difieren de
+ la anterior en que su varianza sí está acotada aunque su media se mueve
+ en proporción al término de la deriva, como se muestra en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "caminataconderiva"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=\alpha+Y_{t-1}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename caminataderiva.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename correlogramacaminataderiva.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Caminata aleatoria con deriva.
+ 
+\begin_inset Formula $\alpha=0.5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "caminataconderiva"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Ruido blanco
+\end_layout
+
+\begin_layout Standard
+Un ruido blanco es un proceso estocástico normal, incorrelacionado y homoscedást
+ico.
+ Es el pilar fundamental sobre el que se asienta el modelo clásico de econometrí
+a.
+ El término de error en un modelo clásico es, por definición, una variable
+ desconocida pero que se distribuye de una forma particular, que conocemos
+ de antemano.
+ Es una normal de varianza constante.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\varepsilon\sim N\left(0,\sigma^{2}I\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Diversos fenómenos de autocorrelación y heteroscedasticidad incumplen las
+ hipótesis clásicas.
+ Esto debe ser tenido en cuenta a la hora de formular un modelo econométrico
+ para no asignarle ciertas cualidades estadísticas que en realidad no tenga.
+\end_layout
+
+\begin_layout Standard
+Para acompañar la explicación, también se ha programado el siguiente script
+ que genera ruido blanco.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# fija el tamaño muestral y lo clasifica como temporal
+\end_layout
+
+\begin_layout Plain Layout
+
+nulldata 100
+\end_layout
+
+\begin_layout Plain Layout
+
+setobs 1 1 --time-series
+\end_layout
+
+\begin_layout Plain Layout
+
+genr time
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# semilla de números aleatorios
+\end_layout
+
+\begin_layout Plain Layout
+
+set seed 7777777
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+series e = normal()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# representación gráfica
+\end_layout
+
+\begin_layout Plain Layout
+
+gnuplot e --with-lines --time-series
+\end_layout
+
+\begin_layout Plain Layout
+
+corrgm e 50
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ruidoblanco.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename correlogramaruidoblanco.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Ruido blanco 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Ergodicidad
+\end_layout
+
+\begin_layout Standard
+El concepto de ergodicidad se refiere a la convergencia probabilística de
+ los momentos muestrales en los poblacionales cuando 
+\begin_inset Formula $s\rightarrow\infty$
+\end_inset
+
+, es decir, cuando la serie se aleja del momento 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ Esto supone que la función de autocorrelación observada en los correlogramas
+ tiende a cero conforme crece el desfase entre los momentos 
+\begin_inset Formula $t$
+\end_inset
+
+ y 
+\begin_inset Formula $s$
+\end_inset
+
+, es decir, 
+\begin_inset Formula $plim\left(\rho_{s}\right)=0.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Estacionariedad
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:section"
+
+\end_inset
+
+En el análisis econométrico de series temporales es de vital importancia
+ determinar si el proceso estocástico con el que se trabaja es estacionario
+ o integrado de orden 
+\begin_inset Formula $d$
+\end_inset
+
+, pues de esto va a depender la validez asintótica de toda la modelización
+ que se lleve a cabo.
+ Para clasificar siguiendo este procedimiento a una serie estocástica, hay
+ que fijarse en los momentos de las distribuciones objeto de estudio, ya
+ que es imposible conocer con certeza la función de distribución conjunta
+ del proceso estocástico en cada periodo.
+\end_layout
+
+\begin_layout Standard
+Formalmente se define un proceso estocástico como un conjunto de variables
+ aleatorias que se suceden en el tiempo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y=\left\{ Y_{1},\, Y_{2},\,\dots,\, Y_{T}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cuyos momentos tienen la forma:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+E\left(Y_{t}\right)=\mu_{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+var\left(Y_{t}\right)=\sigma_{t}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang english
+\begin_inset Formula 
+\[
+cov\left(Y_{t},Y_{t+s}\right)=\sigma_{t,t+s}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se puede afirmar que un proceso estocástico es estacionario en sentido débil
+ si se cumple que la esperanza y varianza son constantes a lo largo del
+ tiempo y que la covarianza entre variables en distintos momentos de tiempo
+ solo depende del desfase entre ellas.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{t}=\mu
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sigma_{t}^{2}=\sigma^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sigma_{t,t+s}=\sigma_{t,t-s}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pero generalmente las variables económicas no son estacionarias ya que presentan
+ algún tipo de tendencia que provoca que la media y/o varianza no sean constante
+s en el tiempo.
+ Una serie económica es integrada de orden 
+\begin_inset Formula $d$
+\end_inset
+
+ si se puede transformar en una serie estacionaria aplicando diferencias
+ de orden 
+\begin_inset Formula $d$
+\end_inset
+
+, es decir, tomando primeras diferencias, 
+\begin_inset Formula $d$
+\end_inset
+
+ veces.
+ En concreto, si 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ es 
+\begin_inset Formula $I(1)$
+\end_inset
+
+, entonces 
+\begin_inset Formula $Y_{t}=X_{t}-X_{t-1}$
+\end_inset
+
+ es una serie estacionaria.
+\end_layout
+
+\begin_layout Subsubsection
+Test de Dickey-Fuller
+\end_layout
+
+\begin_layout Standard
+El test de Dickey y Fuller parte de un proceso autorregresivo de orden uno.
+ Estos procesos estocásticos se convierten en modelos de caminata aleatoria
+ si tienen raíz unitaria, es decir si 
+\begin_inset Formula $\varphi=1$
+\end_inset
+
+.
+ Por lo tanto el contraste DF hace una regresión auxiliar de 
+\begin_inset Formula $Y_{t}$
+\end_inset
+
+ sobre su valor rezagado un periodo para comprobar la anterior igualdad.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=\varphi Y_{t-1}+\varepsilon_{t}\label{eq:DF}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La ecuación 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DF"
+
+\end_inset
+
+ es la expresión básica del test DF.
+ A esta se le puede añadir un término constante, una variable de tendencia
+ determinista e incluso de tendencia cuadrática.
+\end_layout
+
+\begin_layout Standard
+Las pruebas realizadas mediante experimentos de Monte Carlo han demostrado
+ que este test presenta un sesgo muy marcado si existe verdaderamente la
+ raíz unitaria
+\begin_inset CommandInset citation
+LatexCommand citep
+key "gujarati2010econometria"
+
+\end_inset
+
+.
+ La solución planteada es restar un retardo a ambos lados de la ecuación.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y_{t}-Y_{t-1}=\varphi Y_{t-1}-Y_{t-1}+\varepsilon_{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta Y_{t}=\underbrace{\left(\varphi-1\right)}_{\delta}Y_{t-1}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Además, esto provoca un cambio de variable que se pretende contrastar, que
+ ahora será 
+\begin_inset Formula $\delta=\varphi-1$
+\end_inset
+
+.
+ Consecuentemente, la nueva hipótesis nula será 
+\begin_inset Formula $H_{0}:\delta=0$
+\end_inset
+
+ frente a la alternativa 
+\begin_inset Formula $H_{1}:\delta<0$
+\end_inset
+
+.
+ El problema de este contraste radica en que la distribución que sigue el
+ estadístico no es la típica t de Student sino una distribución cuyos valores
+ recogen 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "dickey1979distribution"
+
+\end_inset
+
+ y posteriormente completa 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mackinnon1996numerical"
+
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Gretl utiliza los valores de Davidson y MacKinnon.
+ Las tablas completas pueden consultarse en el artículo citado.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Test Aumentado de Dickey-Fuller
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:adf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El test DF no tiene en cuenta la existencia de autocorrelación, situación
+ muy habitual en series temporales.
+ El planteamiento que soluciona este problema es el test ampliado de Dickey
+ y Fuller.
+ En la práctica es el test que se utiliza para contrastar la estacionariedad.
+ 
+\end_layout
+
+\begin_layout Standard
+Analíticamente el contraste ADF es
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta Y_{t}=\beta_{0}+\delta Y_{t-1}+\sum_{i=1}^{q}{\gamma_{i}\Delta Y_{t-1}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El test ADF tiene una variante que se utiliza cuando la serie presenta una
+ tendencia temporal.
+ En ese caso habría que añadir la variable tiempo como un regresor más de
+ la ecuación:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta Y_{t}=\beta_{0}+\alpha t+\delta Y_{t-1}+\sum_{i=1}^{q}{\gamma_{i}\Delta Y_{t-1}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+En este test se añaden retardos de la primera diferencia hasta eliminar
+ la autocorrelación.
+ El número de rezagos tiene que ser el mínimo posible para que el test no
+ pierda potencia.
+ Gretl, a diferencia de otros paquetes econométricos comerciales, selecciona
+ automáticamente este valor, siguiendo un criterio de información de Akaike
+ modificado 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ng2001lag"
+
+\end_inset
+
+.
+ Concretamente, el comando de Gretl para realizar un test de raíces unitarias
+ es el siguiente.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+adf [serie] [opciones] 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cuyas principales opciones se explican a continuación.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+--c 							con constante
+\end_layout
+
+\begin_layout Plain Layout
+
+--ct 							con constante y tendencia
+\end_layout
+
+\begin_layout Plain Layout
+
+--difference 					usa la primera diferencia de la variable
+\end_layout
+
+\begin_layout Plain Layout
+
+--test-down=[criterio] 			selección automática del número de rezagos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Cointegración
+\end_layout
+
+\begin_layout Standard
+Puede parecer que la existencia de raíces unitarias no es ningún obstáculo
+ ya que se puede resolver fácilmente aplicando diferencias, pero lo que
+ esto produce es un cambio en la especificación del modelo que afecta a
+ su interpretación.
+ Lo que verdaderamente se estima en el caso de que no haya estacionariedad
+ no es una variable sino la variación que esta ha sufrido en el último periodo,
+ por lo que no es correcto utilizar este enfoque para analizar procesos
+ a largo plazo.
+\end_layout
+
+\begin_layout Standard
+La Teoría Económica no puede estar limitada a hacer estudios cortoplacistas
+ aunque sabemos que la mayor parte de variables e indicadores económicos
+ presentan un problema provocado por la ausencia de estacionariedad.
+ 
+\end_layout
+
+\begin_layout Standard
+Afortunadamente, Engle y Granger encontraron una forma de superar este obstáculo.
+ Su gran aportación fue recompensada con el Premio Nobel de Economía 2003.
+\end_layout
+
+\begin_layout Standard
+Su concepto de cointegración explica que entre dos variables con el mismo
+ orden de integración puede existir una combinación lineal estacionaria
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "engle1987cointegration"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Sea un vector de variables 
+\begin_inset Formula $X_{t}=\left(X_{1},\, X_{2},\,\dots,\, X_{k}\right)$
+\end_inset
+
+ en el que cada variable 
+\begin_inset Formula $X_{i}\sim I(d).$
+\end_inset
+
+ Generalmente, las combinaciones lineales entre variables serán también
+ 
+\begin_inset Formula $I(d)$
+\end_inset
+
+.
+ Sin embargo, es posible que las series estén cointegradas.
+ 
+\begin_inset Formula $X_{t}\sim CI(d,\, b)$
+\end_inset
+
+ si existe un vector 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ no nulo tal que 
+\begin_inset Formula $Y_{t}=\alpha'X_{t}\sim I(d-b),\, b>0$
+\end_inset
+
+.
+ El caso más interesante es aquel en que 
+\begin_inset Formula $d=b=1$
+\end_inset
+
+ así que las variables son integradas de orden 1 pero existe una combinación
+ lineal suya que es estacionaria.
+ Esto sucede porque los efectos a largo plazo de ambas variables se anulan
+ mutuamente para lograr el equilibrio.
+ 
+\end_layout
+
+\begin_layout Standard
+Engle y Granger siguen distintos procedimientos para determinar la cointegración
+ de series temporales pero recomiendan utilizar una prueba que parte del
+ test ADF.
+ En este caso:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta u_{t}=\beta_{0}+\delta u_{t-1}+\sum_{i=1}^{q}{\gamma_{i}\Delta u_{t-1}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\begin_inset Formula $u_{t}$
+\end_inset
+
+ es el residuo de la regresión de cointegración entre las variables del
+ vector 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ y la hipótesis nula implica ausencia de cointegración 
+\begin_inset Formula $H_{0}:\delta=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Sin embargo, en Gretl no es necesario realizar de forma manual las sucesivas
+ etapas que forman el test.
+ Existe, al contrario que en otros paquetes econométricos, un comando que
+ ejecuta directamente todos los pasos del test de Engle y Granger.
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+coint [orden máximo de rezagos] [series] [opciones] 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cuyas principales opciones son:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+--c 							con constante
+\end_layout
+
+\begin_layout Plain Layout
+
+--ct 							con constante y tendencia
+\end_layout
+
+\begin_layout Plain Layout
+
+--skip-df						omite un test ADF previo
+\end_layout
+
+\begin_layout Plain Layout
+
+--test-down						selección automática del número de rezagos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Autocorrelación
+\end_layout
+
+\begin_layout Standard
+Aunque se esté usando el contraste de Durbin-Watson para detectar la autocorrela
+ción en las regresiones auxiliares de los test de estacionariedad, hay que
+ advertir que, en principio, este test se ciñe al contraste de autocorrelación
+ en forma de proceso 
+\begin_inset Formula $AR(1)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Sería más completo utilizar también un contraste que superara esta restricción
+ para analizar el modelo que finalmente se plantee.
+ Gretl permite obtener el test de autocorrelación de Breusch-Godfrey, cuya
+ hipótesis alternativa es 
+\begin_inset Formula $H_{1}:\, AR(p)\:ó\: MA(q)$
+\end_inset
+
+.
+ El comando que ejecuta este contraste es el siguiente:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+modtest [opciones] [orden]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Además, este comando da la posibilidad de calcular otros contrastes muy
+ importantes para el análisis econométrico.
+ Se enumeran las principales opciones a continuación.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+--normality 			normalidad de los residuos
+\end_layout
+
+\begin_layout Plain Layout
+
+--logs 				no-linealidad logarítmica
+\end_layout
+
+\begin_layout Plain Layout
+
+--squares 			no-linealidad cuadrática
+\end_layout
+
+\begin_layout Plain Layout
+
+--autocorr 			autocorrelación
+\end_layout
+
+\begin_layout Plain Layout
+
+--white 			test de heteroscedasticidad de White
+\end_layout
+
+\begin_layout Plain Layout
+
+--breusch-pagan 		test de heteroscedasticidad de Breusch-Pagan
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Resultados
+\end_layout
+
+\begin_layout Subsection
+Series temporales
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Series-temporales"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se parte de unos datos
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Todos los datos, gráficos y códigos de este trabajo están disponibles en
+ mi repositorio git en 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/edkalrio/tfg"
+target "https://github.com/edkalrio/tfg"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ de desempleo y PIB de España en el periodo 1980-2012 obtenidos de la base
+ de datos del banco mundial.
+\end_layout
+
+\begin_layout Standard
+Para evitar que este trabajo quede obsoleto ante un cambio de interfaz en
+ Gretl, se ha optado por presentar las instrucciones en forma de comandos.
+ Estos pueden introducirse en la consola de Gretl, a la que se accede pulsando
+ 
+\family typewriter
+c
+\family default
+ en la pantalla principal de Gretl o directamente desde la terminal del
+ sistema con el comando 
+\family typewriter
+gretlcli.
+\end_layout
+
+\begin_layout Standard
+El primer paso es importar los datos con los que se va a trabajar.
+ Los comandos que le siguen, sirven para clasificar las series como temporales
+ y ordenarlas cronológicamente.
+ Por último, es útil generar una variable temporal que puede servir para
+ hacer regresiones auxiliares o representaciones gráficas.
+ Como se aprecia, la sintaxis de Gretl no es especialmente difícil.
+ Usar comandos en vez de recurrir a la interfaz gráfica permite trabajar
+ con mayor velocidad.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? open ~/tfg.xls
+\end_layout
+
+\begin_layout Plain Layout
+
+? setobs 1 1980 --time-series
+\end_layout
+
+\begin_layout Plain Layout
+
+? genr time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En el estudio de la estacionariedad, es importante obtener la representación
+ gráfica de las series temporales.
+ Gretl ofrece la posibilidad de representar gráficos múltiples para agrupar
+ distintas series.
+ En este caso, dibujar la serie 
+\begin_inset Formula $y$
+\end_inset
+
+ así como su primera diferencia.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? scatters y d_y
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename scattersys.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+variable de la producción a nivel y primera diferencia
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se aprecia que la serie 
+\begin_inset Formula $y$
+\end_inset
+
+ tiene tenencia lineal.
+ Para cerciorarse, solo hay realizar una regresión MCO auxiliar contra la
+ variable temporal.
+ 
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? ols y const time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Modelo 1: MCO, usando las observaciones 1980-2012 (T = 33)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: y
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente   Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      3,69240e+11   1,22748e+10        30,08       1,67e-24 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  time       1,92154e+10   6,29962e+08        30,50       1,10e-24 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  6,96e+11   D.T.
+ de la vble.
+ dep.
+   1,89e+11
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  3,68e+22   D.T.
+ de la regresión    3,45e+10
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,967755   R-cuadrado corregido    0,966715
+\end_layout
+
+\begin_layout Plain Layout
+
+F(1, 31)                930,3962   Valor p (de F)          1,10e-24
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -846,4730   Criterio de Akaike      1696,946
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     1699,939   Crit.
+ de Hannan-Quinn   1697,953
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                     0,895967   Durbin-Watson           0,241592
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Además se puede dibujar una gráfica que recoja los valores originales de
+ la serie, los ajustados y los residuos.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? series yhat = $yhat
+\end_layout
+
+\begin_layout Plain Layout
+
+? series resid = $uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+? gnuplot y yhat resid --time-series --with-lines
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename 3y.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+gráfico de la regresión auxiliar de 
+\begin_inset Formula $y$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El nivel de significación o la bondad del ajuste reflejan inequívocamente
+ la existencia de esa tendencia lineal, determinista.
+\end_layout
+
+\begin_layout Standard
+A continuación se representa la variable 
+\begin_inset Formula $u$
+\end_inset
+
+ junto a su primera diferencia.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? scatters u d_u
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename scattersus.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+variable del desempleo a nivel y primera diferencia
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En este caso no parece haber tendencia determinista.
+ Se vuelve a utilizar el procedimiento anterior para comprobarlo
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? ols u const time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Modelo 2: MCO, usando las observaciones 1980-2012 (T = 33)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente   Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  ----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      18,0712        1,71147          10,56        8,61e-12 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  time       -0,0820856     0,0878350        -0,9345      0,3572  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  16,67576   D.T.
+ de la vble.
+ dep.
+   4,794986
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  715,5804   D.T.
+ de la regresión    4,804502
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,027401   R-cuadrado corregido   -0,003973
+\end_layout
+
+\begin_layout Plain Layout
+
+F(1, 31)                0,873370   Valor p (de F)          0,357247
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -97,58865   Criterio de Akaike      199,1773
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     202,1703   Crit.
+ de Hannan-Quinn   200,1844
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                     0,905713   Durbin-Watson           0,227574
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El p-valor es tan alto que no es posible rechazar la hipótesis nula de no
+ significación, con lo que la variable temporal no es relevante en esta
+ regresión y no habrá que tenerla en cuenta a la hora de realizar el test
+ aumentado de Dickey y Fuller.
+ La figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3u"
+
+\end_inset
+
+ refleja esa ausencia de tendencia determinista.
+ Sin embargo, parece haber tendencia estocástica en la volatilidad del gráfico
+ de residuos.
+ 
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? series uhat = $yhat
+\end_layout
+
+\begin_layout Plain Layout
+
+? series resid = $uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+? gnuplot u uhat resid --time-series --with-lines
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename 3u.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+gráfico de la regresión auxiliar de 
+\begin_inset Formula $u$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "3u"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Un tipo concreto de gráfico que resulta de gran utilidad es el correlograma.
+ En este, se representan las funciones de autocorrelación total y parcial
+ para estudiar la posible existencia de ergodicidad o esquemas autorregresivos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? corrgm y 32
+\end_layout
+
+\begin_layout Plain Layout
+
+? corrgm d_y 32
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename correlogramy.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename correlogramd_y.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+correlogramas de la serie y
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El correlograma de la serie 
+\begin_inset Formula $y$
+\end_inset
+
+ no tiende rápidamente hacia cero por lo que no parece que haya ergodicidad.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? corrgm u 32
+\end_layout
+
+\begin_layout Plain Layout
+
+? corrgm d_u 32
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename correlogramu.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename correlogramd_u.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+correlogramas de la serie u
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Al contrario que en la anterior, la serie del desempleo sí tiende a cero.
+ Para completar el análisis de estacionariedad se lleva a cabo el test aumentado
+ de Dickey y Fuller del que ya se ha hablado en la sección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:adf"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+ADF para la serie del PIB
+\end_layout
+
+\begin_layout Standard
+El comando específico para esta serie es el siguiente
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? adf 9 y --ct --test-down=MAIC
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Proporciona la siguiente salida:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily},breaklines=true,extendedchars=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+MIC = 3954,46 for k = 09
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 4050,33 for k = 08
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 4198,62 for k = 07
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 2481,89 for k = 06
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 1796,71 for k = 05
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 1374,59 for k = 04
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 1376,44 for k = 03
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 323,958 for k = 02
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 243,925 for k = 01
+\end_layout
+
+\begin_layout Plain Layout
+
+   con constante y tendencia 
+\end_layout
+
+\begin_layout Plain Layout
+
+   modelo: (1-L)y = b0 + b1*t + (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout Plain Layout
+
+   Coef.
+ de autocorrelación de primer orden de e: -0,028
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor estimado de (a - 1): -0,14595
+\end_layout
+
+\begin_layout Plain Layout
+
+   Estadístico de contraste: tau_ct(1) = -1,93959
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor p asintótico 0,6335
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Regresión aumentada de Dickey-Fuller
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_y
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p   
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       5,79883e+10   2,54313e+10        2,280       0,0307   **
+\end_layout
+
+\begin_layout Plain Layout
+
+  y_1        -0,145950      0,0752476         -1,940       0,6335  
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_1       0,739899      0,145273           5,093       2,37e-05 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  time        2,63608e+09   1,52269e+09        1,731       0,0948   *
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  AIC: 1531,79   BIC: 1537,52   HQC: 1533,66
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Siguiendo el método modificado de Akaike
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+La regla de decisión para este criterio es 
+\begin_inset Formula $MIC_{1}\succ MIC_{2}\leftrightarrow MIC_{1}<MIC_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, el programa encuentra que el orden de rezagos óptimo es 1.
+ Gretl calcula el estadístico de contraste 
+\begin_inset Formula $\tau$
+\end_inset
+
+, que es aquel que Dickey y Fuller tabularon.
+ Se puede hacer el contraste de hipótesis con este valor, aunque resulta
+ más cómodo utilizar el p-valor que ha sido calculado correctamente, utilizando
+ las tablas específicas del estadístico.
+ La hipótesis nula no puede ser rechazada para un nivel de significación
+ del 5% por lo que la serie 
+\begin_inset Formula $y$
+\end_inset
+
+ es 
+\begin_inset Formula $I(1)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+ADF para la serie del desempleo
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? adf 9 u --c --test-down=MAIC
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+MIC = 76,1637 for k = 09
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 20,9255 for k = 08
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 18,5763 for k = 07
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 18,0821 for k = 06
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 11,2694 for k = 05
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 9,43562 for k = 04
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 7,69848 for k = 03
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 5,41725 for k = 02
+\end_layout
+
+\begin_layout Plain Layout
+
+MIC = 4,70722 for k = 01
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Contraste aumentado de Dickey-Fuller para u
+\end_layout
+
+\begin_layout Plain Layout
+
+incluyendo un retardo de (1-L)u
+\end_layout
+
+\begin_layout Plain Layout
+
+(el máximo fue 9, el criterio AIC modificado)
+\end_layout
+
+\begin_layout Plain Layout
+
+tamaño muestral 31
+\end_layout
+
+\begin_layout Plain Layout
+
+hipótesis nula de raíz unitaria: a = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   contraste con constante 
+\end_layout
+
+\begin_layout Plain Layout
+
+   modelo: (1-L)y = b0 + (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout Plain Layout
+
+   Coef.
+ de autocorrelación de primer orden de e: -0,046
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor estimado de (a - 1): -0,150875
+\end_layout
+
+\begin_layout Plain Layout
+
+   Estadístico de contraste: tau_c(1) = -2,19578
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor p asintótico 0,208
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Regresión aumentada de Dickey-Fuller
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente   Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  const        2,63039      1,16892           2,250       0,0325   **
+\end_layout
+
+\begin_layout Plain Layout
+
+  u_1         -0,150875     0,0687113        -2,196       0,2080  
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_1        0,698815     0,143688          4,863       4,03e-05 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  AIC: 123,072   BIC: 127,374   HQC: 124,475
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El test ADF para la serie del desempleo revela que la hipótesis nula tampoco
+ puede ser rechazada para un nivel de significación del 5% por lo que la
+ serie 
+\begin_inset Formula $u$
+\end_inset
+
+ es 
+\begin_inset Formula $I(1)$
+\end_inset
+
+ al igual que la serie 
+\begin_inset Formula $y$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Contraste de cointegración
+\end_layout
+
+\begin_layout Standard
+Una vez se ha comprobado que las series son integradas de primer orden,
+ el análisis pasa al contraste de cointegración de Engle y Granger.
+ Se estima una regresión donde la tendencia temporal y la serie 
+\begin_inset Formula $y$
+\end_inset
+
+ expliquen el comportamiento de la variable dependiente.
+ La inclusión de la variable temporal se produce porque la serie y presentaba
+ tendencia determinista como se comprobó en el apartado 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Series-temporales"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Se ejecuta el siguiente comando:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? coint 9 u y --test-down --skip-df --ct
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La salida muestra que el residuo de la regresión cointegrante no es estacionario
+ sino integrado de orden uno.
+ Por lo que se descarta la existencia de una relación cointegrante que asegurarí
+a un equilibrio a largo plazo.
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Etapa 1: regresión cointegrante
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Regresión cointegrante - 
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1980-2012 (T = 33)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      65,6535        3,64980            17,99       1,28e-17 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  y          -1,28866e-10   9,71955e-12       -13,26       4,44e-14 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  time        2,39411       0,189851           12,61       1,60e-13 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  16,67576   D.T.
+ de la vble.
+ dep.
+   4,794986
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  104,3197   D.T.
+ de la regresión    1,864758
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,858211   R-cuadrado corregido    0,848759
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -65,81569   Criterio de Akaike      137,6314
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     142,1209   Crit.
+ de Hannan-Quinn   139,1420
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                     0,854909   Durbin-Watson           0,292045
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Etapa 2: contrastando la existencia de una raíz unitaria en uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Contraste aumentado de Dickey-Fuller para uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+incluyendo un retardo de (1-L)uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+(el máximo fue 9, el criterio AIC modificado)
+\end_layout
+
+\begin_layout Plain Layout
+
+tamaño muestral 31
+\end_layout
+
+\begin_layout Plain Layout
+
+hipótesis nula de raíz unitaria: a = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   modelo: (1-L)y = (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout Plain Layout
+
+   Coef.
+ de autocorrelación de primer orden de e: -0,082
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor estimado de (a - 1): -0,193923
+\end_layout
+
+\begin_layout Plain Layout
+
+   Estadístico de contraste: tau_ct(2) = -2,01769
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor p asintótico 0,7643
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Hay evidencia de una relación cointegrante si:
+\end_layout
+
+\begin_layout Plain Layout
+
+(a) La hipótesis de existencia de raíz unitaria no se rechaza para las variables
+ individuales.
+\end_layout
+
+\begin_layout Plain Layout
+
+(b) La hipótesis de existencia de raíz unitaria se rechaza para los residuos
+ (uhat) de la regresión cointegrante.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Modelo final
+\end_layout
+
+\begin_layout Standard
+Finalmente se plantea un modelo autorregresivo en diferencias.
+ Este modelo se asemeja a la ecuación generalizada de Okun I propuesta por
+ Belmonte y Polo de la que se hacía referencia en la subsección 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:okun generalizado"
+
+\end_inset
+
+.
+ Al contrario que en esta, Belmonte y Polo toman logaritmos en la diferencia
+ de la producción.
+ Sin embargo, en la práctica, la mejora en la bondad del ajuste es difícilmente
+ justificable.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta u_{t}=\beta_{0}+\sum_{1}^{P}{\beta_{up}\Delta u_{t-p}}+\sum_{0}^{Q}{\beta_{yp}\Delta y_{t-q}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En Gretl, la estimación de este último modelo pasa por generar las primeras
+ diferencias de las variables y posteriormente, realizar sucesivas estimaciones
+ de mínimos cuadrados ordinarios para seleccionar el órden máximo de retardos.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? diff u
+\end_layout
+
+\begin_layout Plain Layout
+
+? diff y
+\end_layout
+
+\begin_layout Plain Layout
+
+? ols d_u const d_y
+\end_layout
+
+\begin_layout Plain Layout
+
+? ols d_u const d_y(0 to -1)
+\end_layout
+
+\begin_layout Plain Layout
+
+? ols d_u const d_y d_u(-1)
+\end_layout
+
+\begin_layout Plain Layout
+
+? ols d_u const d_y(0 to -1) d_u(-1)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\family typewriter
+d_[variable]
+\family default
+ es el token reservado en Gretl para referirse a las primeras diferencias.
+ Para añadir a un modelo de estimación MCO los rezagos de las variables,
+ se hace uso de la sintaxis 
+\family typewriter
+[variable](0 to -[máximo retardo])
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+El cuadro 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cuadrofinal"
+
+\end_inset
+
+ resume los principales estadísticos
+\size scriptsize
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\size scriptsize
+El apartado de autocorrelación se refiere al P-valor del test Breusch-Godfrey,
+ con un retardo, calculado a partir del estadístico 
+\begin_inset Formula $TR^{2}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\size default
+ a tener en cuenta para seleccionar el orden de los retardos.
+ Los resultados completos de las regresiones y sus correspondientes tests
+ de autocorrelación pueden consultarse en el anexo.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\size scriptsize
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Ecuación
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Autocorrelación
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $\bar{R}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+AIC
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Schwarz
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $\Delta u_{t}=\beta_{0}+\beta_{1}\Delta y_{t}+\varepsilon_{t}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,196
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,799231
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+92,72732
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+95,65879
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $\Delta u_{t}=\beta_{0}+\beta_{y0}\Delta y_{t}+\beta_{y1}\Delta y_{t-1}+\varepsilon_{t}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,26
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,786666
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+92,71014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+97,01210
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $\Delta u_{t}=\beta_{0}+\beta_{u1}\Delta u_{t-1}+\beta_{y0}\Delta y_{t}+\varepsilon_{t}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,19
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,786473
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+92,73821
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+97,04017
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+\begin_inset Formula $\Delta u_{t}=\beta_{0}+\beta_{u1}\Delta u_{t-1}+\beta_{y0}\Delta y_{t}+\beta_{y1}\Delta y_{t-1}+\varepsilon_{t}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,331
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+0,789876
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+93,11284
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size scriptsize
+98,84878
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\size default
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Selección del orden máximo de retardos
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "cuadrofinal"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se puede concluir que el modelo más sencillo es el que ofrece mejores resultados.
+ 
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily},breaklines=true,extendedchars=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Modelo Final: MCO, usando las observaciones 1981-2012 (T = 32)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       2,30565       0,243676            9,462      1,63e-10 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y        -1,21453e-10   1,08890e-11       -11,15       3,39e-12 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  0,434375   D.T.
+ de la vble.
+ dep.
+   2,231101
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  29,98171   D.T.
+ de la regresión    0,999695
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,805707   R-cuadrado corregido    0,799231
+\end_layout
+
+\begin_layout Plain Layout
+
+F(1, 30)                124,4063   Valor p (de F)          3,39e-12
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -44,36366   Criterio de Akaike      92,72732
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     95,65879   Crit.
+ de Hannan-Quinn   93,69902
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                     0,225048   Durbin-Watson           1,536587
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Un análisis en profundidad del modelo final, revela la ausencia de variables
+ no significativas individualmente, a diferencia de lo que ocurre en los
+ modelos con retardos.
+ El valor de 
+\begin_inset Formula $\bar{R}^{2}$
+\end_inset
+
+ se utiliza como una medida de la bondad del ajuste, es decir, para medir
+ la parte de la varianza de la variable dependiente explicada a través de
+ los regresores, ajustada al número de estos.
+ Para tratarse de datos reales, un 80% es un valor bastante aceptable y
+ deja margen para la utilización de este modelo como herramienta de análisis
+ de políticas de empleo.
+ La figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "realvsobservada"
+
+\end_inset
+
+ compara el valor estimado de la variable dependiente con el real.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename obsestimadatime.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+datos reales vs estimados
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "realvsobservada"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "residuosfnal"
+
+\end_inset
+
+ permite estudiar en profundidad la posible existencia de autocorrelación.
+ Para ello se muestra el gráfico de residuos respecto al tiempo, el correlograma
+ y la nube de puntos que resulta de comparar el valor del residuo con el
+ de su retardo.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename residuosfinal.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename correlogramfinal.eps
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename nubeautocorrelacionfinal.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+gráficos de residuos
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "residuosfnal"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Todo ello indica que el residuo es un ruido blanco, caracterizado por la
+ ausencia de autocorrelación.
+ Para precisar aún más, se ejecuta el test de Breusch-Godfrey con uno y
+ dos retardos.
+ Los resultados reafirman la evidente ausencia de autocorrelación.
+ 
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? modtest --autocorr 2
+\end_layout
+
+\end_inset
+
+
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Contraste Breusch-Godfrey de autocorrelación hasta el orden 2
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1981-2012 (T = 32)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  ----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      -0,0868861     0,254245          -0,3417      0,7351 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y         4,92629e-12   1,16092e-11        0,4243      0,6746 
+\end_layout
+
+\begin_layout Plain Layout
+
+  uhat_1      0,221026      0,192015           1,151       0,2594 
+\end_layout
+
+\begin_layout Plain Layout
+
+  uhat_2      0,113519      0,197961           0,5734      0,5709 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  R-cuadrado = 0,063296
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico de contraste: LMF = 0,946019,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(F(2,28) > 0,946019) = 0,4
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico alternativo: TR^2 = 2,025463,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(2) > 2,02546) = 0,363
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Ljung-Box Q' = 2,30358,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(2) > 2,30358) = 0,316
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+? modtest --autocorr 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Contraste Breusch-Godfrey de autocorrelación de primer orden
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1981-2012 (T = 32)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  ----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      -0,0548290     0,245136          -0,2237      0,8246 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y         3,17485e-12   1,10699e-11        0,2868      0,7763 
+\end_layout
+
+\begin_layout Plain Layout
+
+  uhat_1      0,237403      0,187669           1,265       0,2159 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  R-cuadrado = 0,052295
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico de contraste: LMF = 1,600240,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(F(1,29) > 1,60024) = 0,216
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico alternativo: TR^2 = 1,673441,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,67344) = 0,196
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Ljung-Box Q' = 1,703,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,703) = 0,192
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pero todo es susceptible de mejorar.
+ 
+\end_layout
+
+\begin_layout Standard
+Uno podría pensar que la crisis económica ha producido un shock estacional
+ que afectaría a la bondad del modelo.
+ Esto se podría solucionar planteando una ecuación con variables ficticias
+ que tomaran distintos valores antes y después de 2007 o en los periodos
+ en los que hubiera crecimiento/decrecimiento.
+ 
+\end_layout
+
+\begin_layout Standard
+Otra posible vía de investigación sería el planteamiento del método de estimació
+n por Variables Instrumentales, si la variable de la producción fuera endógena
+ y estuviese contemporáneamente correlacionada con la perturbación.
+\end_layout
+
+\begin_layout Standard
+También puede surgir una duda en la identificación de la variable del desempleo
+ como endógena, explicada por la producción.
+ Esta diferenciación parece arbitraria y podría superarse fácilmente con
+ modelos de ecuaciones simultáneas o incluso con un modelo VAR en el que
+ ambas variables fueran simultáneamente dependientes y explicativas, pero
+ esto es algo que, como dijo Sraffa
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Sraffa, P.
+ (1965).
+ 
+\shape italic
+Producción de mercancías por medio de mercancías: Preludio a una crítica
+ de la teoría económica.
+
+\shape default
+ Oikos-tau.
+\end_layout
+
+\end_inset
+
+: "...se podrá intentar más tarde, bien sea por el autor o por alguien más
+ joven y mejor equipado para la tarea."
+\end_layout
+
+\begin_layout Section
+Conclusiones
+\end_layout
+
+\begin_layout Standard
+Gretl ha demostrado ser una herramienta econométrica que no sólo está a
+ la altura del resto de soluciones comerciales sino que en muchos aspectos
+ supera a estas.
+ Su potencia, sencillez y precisión proporcionan una forma simple y rápida
+ de elaborar modelos econométricos de series temporales.
+ 
+\end_layout
+
+\begin_layout Standard
+En el análisis de la Ley de Okun se ha comprobado que las series de paro
+ y PIB son integradas de primer orden y no cointegrantes, es decir, no hay
+ un equilibrio a largo plazo entre las series que se han analizado.
+ La regresión cointegrante del test de Engle y Granger es espuria, por lo
+ que es incorrecto plantear un modelo MCE, ya que el término de corrección
+ del error sería no estacionario.
+ 
+\end_layout
+
+\begin_layout Standard
+A partir de los resultados anteriores, se ha analizado la relación a corto
+ plazo existente entre las variables, aplicando métodos econométricos de
+ selección de modelos.
+ Todo ello ha permitido la elaboración de un modelo concreto de la Ley de
+ Okun para España durante el periodo 1980-2012.
+\end_layout
+
+\begin_layout Section
+Anexos 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="34" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+t
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+u
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+y
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1980
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11,1000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+440112233243,992
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1981
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+13,6999998093
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+439529222656,372
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1982
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+15,5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+445007786168,319
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1983
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+16,8999996185
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+452884939144,963
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1984
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+19,6000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+460967520169,85
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1985
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+471668585471,638
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1986
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+20,6000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+487013482004,836
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1987
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+19,8999996185
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+514028717025,194
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1988
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+18,8999996185
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+540215006470,599
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1989
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+566291348509,902
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1990
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+587705052524,646
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1991
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+16,1000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+602668026489,28
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+18,1000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+608268110818,497
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1993
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+22,3999996185
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+601993875288,707
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1994
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+23,8999996185
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+616340565108,611
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1995
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+22,7000007629
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+633336119409,734
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1996
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+22
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+648643931519,84
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1997
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+20,6000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+673737980443,29
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1998
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+18,6000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+703841675998,072
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1999
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+15,6000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+737245561261,189
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+13,8999996185
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+774475100606,667
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2001
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10,5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+802893926680,075
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2002
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11,3999996185
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+824653816873,566
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2003
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11,3000001907
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+850131014921,666
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2004
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+877839344182,006
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2005
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+9,1999998093
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+909298000000
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2006
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+8,5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+946363000000
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2007
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+8,3000001907
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+979288716284,459
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2008
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11,3000001907
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+988020999700,411
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2009
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+950156434697,386
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2010
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+20,1000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+948244130674,335
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2011
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+21,6000003815
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+948721145663,275
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2012
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+933148303065,534
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+series del desempleo y producción en España 1980-2012
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Modelo 1: MCO, usando las observaciones 1981-2012 (T = 32)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       2,30565       0,243676            9,462      1,63e-10 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y        -1,21453e-10   1,08890e-11       -11,15       3,39e-12 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  0,434375   D.T.
+ de la vble.
+ dep.
+   2,231101
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  29,98171   D.T.
+ de la regresión    0,999695
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,805707   R-cuadrado corregido    0,799231
+\end_layout
+
+\begin_layout Plain Layout
+
+F(1, 30)                124,4063   Valor p (de F)          3,39e-12
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -44,36366   Criterio de Akaike      92,72732
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     95,65879   Crit.
+ de Hannan-Quinn   93,69902
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                     0,225048   Durbin-Watson           1,536587
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Contraste Breusch-Godfrey de autocorrelación de primer orden
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1981-2012 (T = 32)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  ----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      -0,0548290     0,245136          -0,2237      0,8246 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y         3,17485e-12   1,10699e-11        0,2868      0,7763 
+\end_layout
+
+\begin_layout Plain Layout
+
+  uhat_1      0,237403      0,187669           1,265       0,2159 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  R-cuadrado = 0,052295
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico de contraste: LMF = 1,600240,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(F(1,29) > 1,60024) = 0,216
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico alternativo: TR^2 = 1,673441,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,67344) = 0,196
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Ljung-Box Q' = 1,703,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,703) = 0,192
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Modelo 2: MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       2,25015       0,279344           8,055       9,02e-09 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y        -1,24793e-10   1,48885e-11       -8,382       4,06e-09 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_1       6,18472e-12   1,55990e-11        0,3965      0,6948  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  0,364516   D.T.
+ de la vble.
+ dep.
+   2,232121
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  29,76137   D.T.
+ de la regresión    1,030973
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,800889   R-cuadrado corregido    0,786666
+\end_layout
+
+\begin_layout Plain Layout
+
+F(2, 28)                56,31240   Valor p (de F)          1,54e-10
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -43,35507   Criterio de Akaike      92,71014
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     97,01210   Crit.
+ de Hannan-Quinn   94,11247
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                     0,197862   Durbin-Watson           1,589506
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Contraste Breusch-Godfrey de autocorrelación de primer orden
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  ----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      -0,0372191     0,280729          -0,1326      0,8955 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y         4,07690e-12   1,53254e-11        0,2660      0,7922 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_1      -2,01956e-12   1,56696e-11       -0,1289      0,8984 
+\end_layout
+
+\begin_layout Plain Layout
+
+  uhat_1      0,211577      0,197000           1,074       0,2923 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  R-cuadrado = 0,040971
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico de contraste: LMF = 1,153463,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(F(1,27) > 1,15346) = 0,292
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico alternativo: TR^2 = 1,270087,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,27009) = 0,26
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Ljung-Box Q' = 1,27868,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,27868) = 0,258
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Modelo 3: MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       2,21889       0,327253           6,780       2,30e-07 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y        -1,17339e-10   1,52347e-11       -7,702       2,17e-08 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_1       0,0414554     0,114228           0,3629      0,7194  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  0,364516   D.T.
+ de la vble.
+ dep.
+   2,232121
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  29,78834   D.T.
+ de la regresión    1,031440
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,800708   R-cuadrado corregido    0,786473
+\end_layout
+
+\begin_layout Plain Layout
+
+F(2, 28)                56,24875   Valor p (de F)          1,56e-10
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -43,36911   Criterio de Akaike      92,73821
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     97,04017   Crit.
+ de Hannan-Quinn   94,14054
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                     0,204602   h de Durbin             1,436546
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Contraste Breusch-Godfrey de autocorrelación de primer orden
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  ----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       0,0632509     0,327780           0,1930      0,8484 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y        -2,78479e-12   1,52403e-11       -0,1827      0,8564 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_1      -0,0743941     0,127590          -0,5831      0,5647 
+\end_layout
+
+\begin_layout Plain Layout
+
+  uhat_1      0,275252      0,218801           1,258       0,2192 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  R-cuadrado = 0,055368
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico de contraste: LMF = 1,582569,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(F(1,27) > 1,58257) = 0,219
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico alternativo: TR^2 = 1,716418,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,71642) = 0,19
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Ljung-Box Q' = 1,3798,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 1,3798) = 0,24
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Modelo 4: MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  -----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       1,66883       0,559969           2,980       0,0060   ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y        -1,20112e-10   1,52868e-11       -7,857       1,90e-08 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_1       3,22440e-11   2,67456e-11        1,206       0,2384  
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_1       0,233909      0,195765           1,195       0,2425  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Media de la vble.
+ dep.
+  0,364516   D.T.
+ de la vble.
+ dep.
+   2,232121
+\end_layout
+
+\begin_layout Plain Layout
+
+Suma de cuad.
+ residuos  28,26673   D.T.
+ de la regresión    1,023189
+\end_layout
+
+\begin_layout Plain Layout
+
+R-cuadrado              0,810888   R-cuadrado corregido    0,789876
+\end_layout
+
+\begin_layout Plain Layout
+
+F(3, 27)                38,59088   Valor p (de F)          6,65e-10
+\end_layout
+
+\begin_layout Plain Layout
+
+Log-verosimilitud      -42,55642   Criterio de Akaike      93,11284
+\end_layout
+
+\begin_layout Plain Layout
+
+Criterio de Schwarz     98,84878   Crit.
+ de Hannan-Quinn   94,98261
+\end_layout
+
+\begin_layout Plain Layout
+
+rho                    -0,040878   Durbin-Watson           2,070563
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Sin considerar la constante, el valor p más alto fue el de la variable 15
+ (d_u_1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Contraste Breusch-Godfrey de autocorrelación de primer orden
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: uhat
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  ----------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      -1,69054       1,95232           -0,8659      0,3945 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y         1,69736e-12   1,54532e-11        0,1098      0,9134 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_1       8,72558e-11   1,00166e-10        0,8711      0,3917 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_1       0,720966      0,821219           0,8779      0,3880 
+\end_layout
+
+\begin_layout Plain Layout
+
+  uhat_1     -0,752540      0,832302          -0,9042      0,3742 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  R-cuadrado = 0,030484
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico de contraste: LMF = 0,817518,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(F(1,26) > 0,817518) = 0,374
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Estadístico alternativo: TR^2 = 0,945019,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 0,945019) = 0,331
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Ljung-Box Q' = 0,0559567,
+\end_layout
+
+\begin_layout Plain Layout
+
+con valor p  = P(Chi-cuadrado(1) > 0,0559567) = 0,813
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "tfg"
+options "bibtotoc,apalike"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

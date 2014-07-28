@@ -1,0 +1,1704 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass ectaart
+\begin_preamble
+%\RequirePackage{hypernat}
+
+%% Local definitions
+\startlocaldefs
+% These require a theorem-like module
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\endlocaldefs
+
+\AtBeginDocument{%
+\addto\captionsspanish{%
+\renewcommand{\abstractname}{}%
+}}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{natbib}
+\usepackage{graphics}
+%\usepackage[colorlinks=true]{hyperref}
+\usepackage{hypernat}
+\hypersetup{urlcolor=black}
+\hypersetup{linkcolor=black}
+\hypersetup{citecolor=black}
+\end_preamble
+\options final, colorlinks=true
+\use_default_options false
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language spanish
+\language_package babel
+\inputencoding utf8
+\fontencoding global
+\font_roman lmodern
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 2.5cm
+\rightmargin 3cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This is a template LyX file for articles to be submitted to the Journal
+ Econometrica.
+ How to install the Econometrica LaTeX class to your LaTeX system is explained
+ in 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://wiki.lyx.org/Layouts/Econometrica
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Análisis econométrico de series temporales en Gretl: La Ley de Okun
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+This template is prepared for the 
+\series bold
+draft
+\series default
+ mode.
+ When you finalize the document for actual submission, uncheck the option
+ 
+\family sans
+Predefined
+\family default
+ in the menu 
+\family sans
+Document
+\family default
+\SpecialChar \menuseparator
+
+\family sans
+Settings
+\family default
+\SpecialChar \menuseparator
+
+\family sans
+DocumentClass
+\family default
+\SpecialChar \menuseparator
+
+\family sans
+Class
+\begin_inset space ~
+\end_inset
+
+options
+\family default
+ and write 
+\series bold
+final
+\series default
+ in the field 
+\family sans
+Custom
+\family default
+.
+\end_layout
+
+\begin_layout Plain Layout
+Other available document options are:
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+titlepage
+\series default
+: print the title page (default in draft mode)
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+notitlepage
+\series default
+: do not print the title page (default in final mode)
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+doublespacing
+\series default
+: set the double spacing (default in draft mode)
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+singlespacing
+\series default
+: set the single spacing (default in final mode)
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+linenumbers
+\series default
+: print line numbers on margins (default in draft mode)
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+nolinenumbers
+\series default
+: turn off line numbers (default in final mode)
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+infoline
+\series default
+: print id line at bottom of the page (default in draft mode)
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+noinfoline
+\series default
+: turn off id line (default in final mode)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout RunTitle
+Análisis econométrico de series temporales en Gretl
+\end_layout
+
+\begin_layout Authors Block
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+You can use Author environment when there is only one author.
+ However, if you have multiple authors, use Authors Block instead of Author
+ environment as in this example.
+ Put the name of each author in the Author inset.
+ Put all names within one line.
+ For the corresponding author, put Corresponding Author inset as a tag in
+ the Author inset (you don't have to fill in anything in Corresponing Author
+ inset).
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Author
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Name (First Name)
+status open
+
+\begin_layout Plain Layout
+Eduardo
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Flex Name (Surname)
+status open
+
+\begin_layout Plain Layout
+Calvo del Río
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout RunAuthor
+Eduardo Calvo del Río
+\end_layout
+
+\begin_layout Address
+Email: eduardo.calvo.rio@alumnos.uva.es
+\end_layout
+
+\begin_layout Address
+Licenciado bajo 
+\begin_inset CommandInset href
+LatexCommand href
+name "Creative Commons Attribution-NonCommercial-ShareAlike 4.0."
+target "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Email
+eduardo.calvo.rio@alumnos.uva.es
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+email
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Web Address
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+web
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+: Gretl es un software econométrico de código abierto que se presenta como
+ una alternativa muy potente al software comercial.
+ El objeto de este trabajo es demostrar la facilidad y versatilidad de este
+ software en el análisis de series temporales.
+ Para ello se estudiará la Ley de Okun que es aquella relación existente
+ entre la variación de la tasa de crecimiento y la tasa de paro en una economía.
+\end_layout
+
+\begin_layout Keyword
+\begin_inset Flex Keyword
+status open
+
+\begin_layout Plain Layout
+Okun
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex Keyword
+status open
+
+\begin_layout Plain Layout
+Gretl
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Keyword
+
+\shape smallcaps
+JEL Classification:
+\shape default
+ C22, C51, E24.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Gretl
+\end_layout
+
+\begin_layout Standard
+Gretl (Gnu Regression, Econometrics and Time-series Library) es un paquete
+ de software para análisis econométrico escrito en el lenguaje de programación
+ C y distribuido bajo la licencia GPL de la Free Software Foundation.
+ 
+\end_layout
+
+\begin_layout Standard
+El código de Gretl se deriva del programa ESL (Econometrics Software Library)
+ escrito por el profesor Ramu Ramanathan de la Universidad de California.
+ La distribución de Gretl como software libre ha permitido que multitud
+ de usuarios participen en su desarrollo, depuración del código, traducción
+ y divulgación por ámbitos académicos y empresariales.
+\end_layout
+
+\begin_layout Standard
+Gretl es un software especialmente útil en la enseñanza de la Econometría
+ porque incluye los ejemplos y ejercicios de los principales manuales de
+ la materia.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+La lista incluye los manuales de Greene, Wooldridge, Gujarati, Davidson
+ y MacKinnon, entre otros.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Entre las ventajas de Gretl respecto de otras soluciones comerciales está
+ su arquitectura multiplataforma que permite instalarlo en distintos sistemas
+ operativos y la dualidad de interfaz que hace posible su ejecución en modo
+ gráfico pero también en modo de línea de comandos (CLI).
+ Además, Gretl ofrece toda una serie de modelos econométricos (MCO, MC2E,
+ ARIMA, GARCH, GMM, VI...) que lo dotan de un alto grado de funcionalidad.
+\end_layout
+
+\begin_layout Section
+Estacionariedad
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:section"
+
+\end_inset
+
+En el análisis econométrico de series temporales es de vital importancia
+ determinar si el proceso estocástico con el que se trabaja es estacionario
+ o integrado de orden 
+\begin_inset Formula $n$
+\end_inset
+
+ pues de esto va a depender la validez asintótica de toda la modelización
+ que se lleve a cabo.
+ Para clasificar siguiendo este procedimiento a una serie estocástica hay
+ que fijarse en los momentos de las distribuciones objeto de estudio ya
+ que es imposible conocer con certeza la función de distribución conjunta
+ del proceso estocástico en cada periodo 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Formalmente se define a un proceso estocástico como un conjunto de variables
+ aleatorias que se suceden en el tiempo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z=\left\{ Z_{1},\, Z_{2},\,\dots,\, Z_{T}\right\} 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En el que se definen sus momentos como:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{equation}
+\end_layout
+
+\begin_layout Plain Layout
+
+E
+\backslash
+left( Z_{ t } 
+\backslash
+right) =
+\backslash
+mu _{ t }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+var
+\backslash
+left( Z_{ t } 
+\backslash
+right) =
+\backslash
+sigma_{t  }^{2  }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+cov
+\backslash
+left( Z_{ t },Z_{ t+u } 
+\backslash
+right) =
+\backslash
+sigma_{t,t+u  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{equation}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se puede afirmar que un proceso estocástico es estacionario si se cumple
+ que la esperanza y varianza son constantes a lo largo del tiempo y que
+ la covarianza entre variables en distintos momentos de tiempo solo depende
+ del desfase entre ellas.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{equation}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+mu _{ t }= 
+\backslash
+mu
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+sigma_{t  }^{2  }=
+\backslash
+sigma^{2  }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+sigma_{t,t+u  } =
+\backslash
+sigma_{t,t-u  }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{equation}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pero generalmente las variables económicas no son estacionarias ya que presentan
+ algún tipo de tendencia que provoca que la media no sea constante en el
+ tiempo.
+ Una serie económica es integrada de orden 
+\begin_inset Formula $d$
+\end_inset
+
+ si se puede transformar en una serie estacionaria aplicando diferencias
+ de orden 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ En concreto, si 
+\begin_inset Formula $Z_{t}$
+\end_inset
+
+ es una serie estacionaria y la serie 
+\begin_inset Formula $Y_{t}$
+\end_inset
+
+ es 
+\begin_inset Formula $I(1)$
+\end_inset
+
+, tenemos que:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z_{t}=Y_{t}-Y_{t-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Esta expresión se corresponde con el esquema de un proceso autorregresivo
+ cuyo parámetro 
+\begin_inset Formula $\phi=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z_{t}=Y_{t}-\phi Y_{t-1},\,\phi=1
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A esta situación se la conoce como raíz unitaria y es la base para los test
+ de detección de estacionariedad propuestos por Dickey y Fuller.
+\end_layout
+
+\begin_layout Standard
+Por tanto, una serie 
+\begin_inset Formula $Y_{t}$
+\end_inset
+
+ será integrada de orden uno si 
+\begin_inset Formula $\phi=1$
+\end_inset
+
+ y estacionaria si el parámetro es menor.
+ Pero esto solo puede aplicarse en procesos 
+\begin_inset Formula $AR(1)$
+\end_inset
+
+.
+ Dickey y Fuller también plantearon un test generalizado comúnmente conocido
+ como contraste aumentado de Dickey-Fuller (ADF) que se basa en la misma
+ metodología pero añade términos autorregresivos hasta que desaparece la
+ autocorrelación que habría surgido al intentar contrastar una serie que
+ no siguiera un proceso autorregresivo de primer orden con el contraste
+ DF.
+\end_layout
+
+\begin_layout Standard
+Analíticamente el contraste ADF es
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta Y_{t}=\beta_{0}+\delta Y_{t-1}+\sum_{i=1}^{q}{\gamma_{i}\Delta Y_{t-1}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En este caso la hipótesis nula es 
+\begin_inset Formula $H_{0}:\delta=0$
+\end_inset
+
+ que indicaría la presencia de raíces unitarias frente a la hipótesis alternativ
+a de estacionariedad 
+\begin_inset Formula $H_{1}:\delta<0$
+\end_inset
+
+.
+ En este contraste, 
+\begin_inset Formula $\delta=\phi-1$
+\end_inset
+
+ por lo que se sigue contrastando
+\begin_inset Formula $\phi=1$
+\end_inset
+
+.
+ Este cambio de variables se produce en el test DF como resultado de una
+ transformación para evitar un sesgo en la estimación MCO.
+\end_layout
+
+\begin_layout Standard
+El test ADF tiene una variante que se utiliza cuando la serie presenta una
+ tendencia.
+ En ese caso habría que añadir la variable tiempo como un regresor más de
+ la ecuación:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta Y_{t}=\beta_{0}+\alpha t+\delta Y_{t-1}+\sum_{i=1}^{q}{\gamma_{i}\Delta Y_{t-1}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El contraste ADF no es el único que permite estudiar la estacionariedad
+ de una serie temporal pero sí es el más usado.
+ También es muy habitual utilizar análisis gráficos previos que pueden guiar
+ en la especificación del modelo.
+ Los gráficos son muy útiles para detectar la existencia de tendencias en
+ las series temporales, así como la constancia o ausencia de ella en media
+ y varianza.
+ Los correlogramas que representan las funciones de autocorrelación total
+ y parcial pueden servir para caracterizar el tipo de esquema autorregresivo
+ que sigue la serie aunque su uso es desaconsejado en modelos ARMA por su
+ creciente complejidad.
+ De cualquier modo, son herramientas que hay que tener en cuenta a la hora
+ de analizar series temporales por su gran capacidad explicativa.
+\end_layout
+
+\begin_layout Section
+Cointegración
+\end_layout
+
+\begin_layout Standard
+Puede parecer que la existencia de raíces unitarias no es ningún problema
+ ya que se puede resolver fácilmente aplicando diferencias pero lo que esto
+ produce es un cambio en la especificación del modelo que afecta a su interpreta
+ción.
+ Lo que verdaderamente se contrasta en el caso de que no haya estacionariedad
+ no es una variable sino la variación que esta ha sufrido en el último periodo
+ por lo que no es correcto utilizar este enfoque para hacer análisis de
+ largo plazo.
+\end_layout
+
+\begin_layout Standard
+La Teoría Económica no puede estar limitada a hacer estudios cortoplacistas
+ aunque sabemos que la mayor parte de variables e indicadores económicos
+ presentan un problema de estacionariedad.
+ 
+\end_layout
+
+\begin_layout Standard
+Afortunadamente, Engle y Granger encontraron una forma de superar este obstáculo.
+ Su gran aportación fue recompensada con el Premio Nobel de Economía 2003.
+\end_layout
+
+\begin_layout Standard
+Su concepto de conintegración explica que entre dos variables con el mismo
+ orden de integración existe una combinación lineal estacionaria.
+ 
+\end_layout
+
+\begin_layout Standard
+De forma general, un vector de variables 
+\begin_inset Formula $X_{T}=\left(X_{1t},\, X_{2t},\,\dots,\, X_{kt}\right)$
+\end_inset
+
+ en el que cada variable 
+\begin_inset Formula $X_{it}\sim I(d)$
+\end_inset
+
+ entonces 
+\begin_inset Formula $\exists X_{T\eta}\sim I(0)$
+\end_inset
+
+ denominado vector de cointegración.
+\end_layout
+
+\begin_layout Standard
+El procedimiento que siguen Engle y Granger para determinar la cointegración
+ de series temporales parte del test ADF para comprobar sus órdenes de integraci
+ón.
+ Sólo si coinciden se puede estimar el modelo por MCO.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scattersyu.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+variables y primeras diferencias
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramy.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramd_y.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+correlograma de la serie y
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramu.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramd_u.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+correlograma de la serie u
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Contraste aumentado de Dickey-Fuller para u
+\end_layout
+
+\begin_layout Plain Layout
+
+incluyendo 9 retardos de (1-L)u (el máximo fue 9)
+\end_layout
+
+\begin_layout Plain Layout
+
+tamaño muestral 23
+\end_layout
+
+\begin_layout Plain Layout
+
+hipótesis nula de raíz unitaria: a = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   contraste con constante 
+\end_layout
+
+\begin_layout Plain Layout
+
+   modelo: (1-L)y = b0 + (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout Plain Layout
+
+   Coef.
+ de autocorrelación de primer orden de e: -0,066
+\end_layout
+
+\begin_layout Plain Layout
+
+   diferencias retardadas: F(9, 12) = 2,953 [0,0419]
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor estimado de (a - 1): -0,483959
+\end_layout
+
+\begin_layout Plain Layout
+
+   Estadístico de contraste: tau_c(1) = -2,87216
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor p asintótico 0,04866
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Regresión aumentada de Dickey-Fuller
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1990-2012 (T = 23)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente   Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  const        8,46893       2,90211          2,918       0,0129  **
+\end_layout
+
+\begin_layout Plain Layout
+
+  u_1         −0,483959      0,168500        −2,872       0,0487  **
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_1        1,01655       0,243703         4,171       0,0013  ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_2        0,270269      0,283864         0,9521      0,3598 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_3        0,166414      0,287707         0,5784      0,5737 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_4        0,599105      0,390232         1,535       0,1507 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_5        0,111094      0,352057         0,3156      0,7578 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_6        0,517491      0,330193         1,567       0,1430 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_7        0,101844      0,339588         0,2999      0,7694 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_8       −0,326476      0,340243        −0,9595      0,3562 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_9        0,837843      0,310063         2,702       0,0192  **
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  AIC: 100,211   BIC: 112,701   HQC: 103,352
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   con constante y tendencia 
+\end_layout
+
+\begin_layout Plain Layout
+
+   modelo: (1-L)y = b0 + b1*t + (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout Plain Layout
+
+   Coef.
+ de autocorrelación de primer orden de e: -0,094
+\end_layout
+
+\begin_layout Plain Layout
+
+   diferencias retardadas: F(9, 11) = 2,445 [0,0821]
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor estimado de (a - 1): -0,559608
+\end_layout
+
+\begin_layout Plain Layout
+
+   Estadístico de contraste: tau_ct(1) = -2,32401
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor p asintótico 0,4202
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Regresión aumentada de Dickey-Fuller
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1990-2012 (T = 23)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_u
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente   Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  const      10,8351         6,00023          1,806       0,0984  *
+\end_layout
+
+\begin_layout Plain Layout
+
+  u_1        −0,559608       0,240795        −2,324       0,4202 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_1       1,05213        0,263992         3,985       0,0021  ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_2       0,324699       0,317106         1,024       0,3279 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_3       0,246401       0,345638         0,7129      0,4908 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_4       0,619571       0,406286         1,525       0,1555 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_5       0,131090       0,366928         0,3573      0,7277 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_6       0,522442       0,341841         1,528       0,1547 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_7       0,116388       0,352838         0,3299      0,7477 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_8      −0,298237       0,357483        −0,8343      0,4219 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_u_9       0,792992       0,335608         2,363       0,0376  **
+\end_layout
+
+\begin_layout Plain Layout
+
+  time       −0,0510516      0,112078        −0,4555      0,6576 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  AIC: 101,781   BIC: 115,407   HQC: 105,208
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Contraste aumentado de Dickey-Fuller para y
+\end_layout
+
+\begin_layout Plain Layout
+
+incluyendo un retardo de (1-L)y (el máximo fue 9)
+\end_layout
+
+\begin_layout Plain Layout
+
+tamaño muestral 31
+\end_layout
+
+\begin_layout Plain Layout
+
+hipótesis nula de raíz unitaria: a = 1
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   contraste con constante 
+\end_layout
+
+\begin_layout Plain Layout
+
+   modelo: (1-L)y = b0 + (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout Plain Layout
+
+   Coef.
+ de autocorrelación de primer orden de e: 0,050
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor estimado de (a - 1): -0,0173908
+\end_layout
+
+\begin_layout Plain Layout
+
+   Estadístico de contraste: tau_c(1) = -1,38283
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor p asintótico 0,5924
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Regresión aumentada de Dickey-Fuller
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1982-2012 (T = 31)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_y
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       1,67307e+10   9,18771e+09        1,821       0,0793   *
+\end_layout
+
+\begin_layout Plain Layout
+
+  y_1        −0,0173908     0,0125762         −1,383       0,5924  
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_1       0,689060      0,147260           4,679       6,67e-05 ***
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  AIC: 1533,05   BIC: 1537,35   HQC: 1534,45
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   con constante y tendencia 
+\end_layout
+
+\begin_layout Plain Layout
+
+   modelo: (1-L)y = b0 + b1*t + (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout Plain Layout
+
+   Coef.
+ de autocorrelación de primer orden de e: 0,017
+\end_layout
+
+\begin_layout Plain Layout
+
+   diferencias retardadas: F(3, 23) = 8,987 [0,0004]
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor estimado de (a - 1): -0,238515
+\end_layout
+
+\begin_layout Plain Layout
+
+   Estadístico de contraste: tau_ct(1) = -2,33228
+\end_layout
+
+\begin_layout Plain Layout
+
+   valor p asintótico 0,4157
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Regresión aumentada de Dickey-Fuller
+\end_layout
+
+\begin_layout Plain Layout
+
+MCO, usando las observaciones 1984-2012 (T = 29)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable dependiente: d_y
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+             Coeficiente    Desv.
+ Típica   Estadístico t   Valor p
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  const       8,41592e+10   3,18786e+10        2,640       0,0146  **
+\end_layout
+
+\begin_layout Plain Layout
+
+  y_1        −0,238515      0,102267          −2,332       0,4157 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_1       0,787281      0,191652           4,108       0,0004  ***
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_2      −0,130153      0,242274          −0,5372      0,5963 
+\end_layout
+
+\begin_layout Plain Layout
+
+  d_y_3       0,378568      0,209271           1,809       0,0835  *
+\end_layout
+
+\begin_layout Plain Layout
+
+  time        4,45577e+09   2,09027e+09        2,132       0,0439  **
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  AIC: 1435,27   BIC: 1443,48   HQC: 1437,84
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+La Ley de Okun
+\end_layout
+
+\begin_layout Standard
+El ejemplo utilizado para mostrar la funcionalidad y flexibilidad de Gretl
+ es la Ley de Okun.
+ Esta es una relación que se ha venido dando entre la tasa de crecimiento
+ de una economía y su tasa de desempleo.
+ 
+\end_layout
+
+\begin_layout Standard
+Esta Ley ha sido objeto de numerosos trabajos y se encuentra en la práctica
+ totalidad de manuales de Macroeconomía por su amplia difusión y aceptación
+ por todas las corrientes económicas.
+ La actual situación laboral en España es lo que me ha llevado a elegir
+ esta regularidad como objeto de estudio y análisis.
+\end_layout
+
+\begin_layout Standard
+Arthur Okun, economista y miembro del Consejo de Asesores Económicos del
+ presidente John F.
+ Kennedy, reconoció esta regularidad en 1962 con datos trimestrales de los
+ Estados Unidos.
+ 
+\end_layout
+
+\begin_layout Standard
+Okun tomó tres vías diferentes 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "okun1963potential"
+
+\end_inset
+
+ para estimar la relación entre la tasa de paro y de crecimiento de la producció
+n.
+\end_layout
+
+\begin_layout Subsection
+Ley de Okun I
+\end_layout
+
+\begin_layout Standard
+En primer lugar, Okun estimó un modelo que relacionaba las variaciones de
+ la tasa de paro en dos períodos consecutivos y la tasa de crecimiento de
+ la producción
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{t}-u_{t-1}=\beta_{0}-\beta_{Y}g_{Yt}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\begin_inset Formula $u_{t}$
+\end_inset
+
+ es la tasa de paro en el periodo y la tasa de crecimiento de la producción
+ es 
+\begin_inset Formula $g_{Y}$
+\end_inset
+
+.
+ Si la variación de la tasa de paro es nula, 
+\begin_inset Formula $\overline{g}_{Yt}$
+\end_inset
+
+ es la tasa de crecimiento de la producción necesaria para mantener el nivel
+ de empleo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\beta_{0}-\beta_{Y}g_{Yt}=0;\;\overline{g}_{Yt}=\frac{\beta_{0}}{\beta_{Y}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sustituyendo en la ecuación original se obtiene que la variación de la tasa
+ de paro es proporcional a la diferencia entre la tasa de crecimiento real
+ y natural de la producción.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{t}-u_{t-1}=-\beta_{Y}\left(g_{Yt}-\overline{g}_{Yt}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+generalizaciones
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta u_{t}=-\beta_{0}+\sum_{1}^{P}{\beta_{up}\Delta u_{t-p}}+\sum_{0}^{Q}{\beta_{yp}\Delta\ln{\left(y_{t-q}\right)}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta u_{t}=\beta_{0}+\beta_{1}\Delta y_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "tfg"
+options "bibtotoc,apalike"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,116 @@
+@article{lopez2006problemas,
+  title={Problemas resueltos de econometr{\'\i}a},
+  author={L{\'o}pez, C{\'e}sar P{\'e}rez},
+  year={2006},
+  publisher={Editorial Paraninfo}
+}
+
+@article{adkins2006undergraduate,
+  title={Undergraduate Econometrics using GRETL},
+  author={Adkins, Lee},
+  year={2006}
+}
+
+@article{adkins2013using,
+  title={Using gretl for Principles of Econometrics, Version 1.0411},
+  author={Adkins, Lee C},
+  year={2013}
+}
+
+@article{mixon2006teaching,
+  title={Teaching undergraduate econometrics with GRETL},
+  author={Mixon Jr, J Wilson and Smith, Ryan J},
+  journal={Journal of Applied Econometrics},
+  volume={21},
+  number={7},
+  pages={1103--1107},
+  year={2006},
+  publisher={John Wiley \& Sons, Ltd.}
+}
+
+@article{cottrell2012gretl,
+  title={Gretl user’s guide},
+  author={Cottrell, Allin and Lucchetti, Riccardo},
+  journal={Distributed with the Gretl library},
+  year={2012}
+}
+
+@article{esteban2009analisis,
+  title={An{\'a}lisis de regresi{\'o}n con Gretl},
+  author={Esteban, M Victoria and Moral, M Paz and Orbe, Susan and Reg{\'u}lez, Marta and Zarraga, Ainhoa and Zubia, Marian},
+  journal={Departamento de econom{\'\i}a Aplicada III, Universidad del Pa{\'\i}s Vasco},
+  year={2009}
+}
+
+@article{belmonte2004formulaciones,
+  title={Formulaciones de la ley de Okun y resultados para Espa{\~n}a},
+  author={Belmonte, Ana and Polo, Clemente},
+  journal={Estudios en homenaje a Luis {\'A}ngel Rojo},
+  volume={1},
+  pages={263},
+  year={2004},
+  publisher={Editorial Complutense}
+}
+
+@article{romanley,
+  title={La ley de Okun en Espa{\~n}a?` por qu{\'e} existen diferencias regionales?},
+  author={Rom{\'a}n, {\'A}ngel L Mart{\'i}n and Porras, Mar{\'i}a Sylvana},
+  year={2004},
+}
+
+@book{blanchard2006macroeconomia,
+  title={Macroeconom{\'\i}a},
+  author={Blanchard},
+  year={2006},
+  publisher={Pearson. Prentice Hall}
+}
+
+@article{knotek2007useful,
+  title={How useful is Okun's law?},
+  author={Knotek, Edward S and others},
+  journal={Economic Review},
+  number={Q IV},
+  pages={73--103},
+  year={2007},
+  publisher={Federal Reserve Bank of Kansas City}
+}
+
+@book{okun1963potential,
+  title={Potential GNP: its measurement and significance},
+  author={Okun, Arthur M},
+  year={1963}
+}
+
+@book{wooldridge2006introduccion,
+  title={Introducci{\'o}n a la econometr{\'\i}a: un enfoque moderno},
+  author={Wooldridge, Jeffrey M},
+  year={2006},
+  publisher={Editorial Paraninfo}
+}
+
+@article{davidson1993estimation,
+  title={Estimation and inference in econometrics},
+  author={Davidson, Russell and MacKinnon, James G},
+  journal={OUP Catalogue},
+  year={1993},
+  publisher={Oxford University Press}
+}
+
+@article{cheung1995lag,
+  title={Lag order and critical values of the augmented Dickey--Fuller test},
+  author={Cheung, Yin-Wong and Lai, Kon S},
+  journal={Journal of Business \& Economic Statistics},
+  volume={13},
+  number={3},
+  pages={277--280},
+  year={1995},
+  publisher={Taylor \& Francis Group}
+}
+
+@book{gujarati2010econometria,
+  title={Econometr{\'\i}a},
+  author={Gujarati D, Porter D},
+  year={2010},
+  publisher={McGraw-Hill}
+}
+

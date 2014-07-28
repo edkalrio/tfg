@@ -1,0 +1,989 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language spanish
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 2cm
+\rightmargin 3cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle plain
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Análisis econométrico de series temporales en Gretl: La Ley de Okun
+\end_layout
+
+\begin_layout Author
+Eduardo Calvo del Río
+\end_layout
+
+\begin_layout Abstract
+Gretl es un software econométrico de código abierto que se presenta como
+ una alternativa muy potente al software comercial.
+ El objeto de este trabajo es demostrar la facilidad y versatilidad de este
+ software en el análisis de series temporales.
+ Para ello se estudiará la Ley de Okun que es aquella relación existente
+ entre la variación de la tasa de crecimiento y la tasa de paro en una economía.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\shape smallcaps
+JEL Classification:
+\shape default
+ C22, C51, E24.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Introducción (interés del tema, objetivos y justificación del trabajo) 
+\end_layout
+
+\begin_layout Subsection
+Gretl
+\end_layout
+
+\begin_layout Standard
+Gretl (Gnu Regression, Econometrics and Time-series Library) es un paquete
+ de software para análisis econométrico escrito en el lenguaje de programación
+ C y distribuido bajo la licencia GPL de la Free Software Foundation.
+ 
+\end_layout
+
+\begin_layout Standard
+El código de Gretl se deriva del programa ESL (Econometrics Software Library)
+ escrito por el profesor Ramu Ramanathan de la Universidad de California.
+ La distribución de Gretl como software libre ha permitido que multitud
+ de usuarios participen en su desarrollo, depuración del código, traducción
+ y divulgación por ámbitos académicos y empresariales.
+\end_layout
+
+\begin_layout Standard
+Gretl es un software especialmente útil en la enseñanza de la Econometría
+ porque incluye los ejemplos y ejercicios de los principales manuales de
+ la materia.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+La lista incluye los manuales de Greene, Wooldridge, Gujarati, Davidson
+ y MacKinnon, entre otros.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Entre las ventajas de Gretl respecto de otras soluciones comerciales está
+ su arquitectura multiplataforma que permite instalarlo en distintos sistemas
+ operativos y la dualidad de interfaz que hace posible su ejecución en modo
+ gráfico pero también en modo de línea de comandos (CLI).
+ Además, Gretl ofrece toda una serie de modelos econométricos (MCO, MC2E,
+ ARIMA, GARCH, GMM, VI...) que lo dotan de un alto grado de funcionalidad.
+\end_layout
+
+\begin_layout Section
+Revisión del estado actual del tema
+\end_layout
+
+\begin_layout Subsection
+La Ley de Okun
+\end_layout
+
+\begin_layout Standard
+El ejemplo utilizado para mostrar la funcionalidad y flexibilidad de Gretl
+ es la Ley de Okun.
+ Esta es una relación que se ha venido dando entre la tasa de crecimiento
+ de una economía y su tasa de desempleo.
+ 
+\end_layout
+
+\begin_layout Standard
+Esta Ley ha sido objeto de numerosos trabajos y se encuentra en la práctica
+ totalidad de manuales de Macroeconomía por su amplia difusión y aceptación
+ por todas las corrientes económicas.
+ La actual situación laboral en España es lo que me ha llevado a elegir
+ esta regularidad como objeto de estudio y análisis.
+\end_layout
+
+\begin_layout Standard
+Arthur Okun, economista y miembro del Consejo de Asesores Económicos del
+ presidente John F.
+ Kennedy, reconoció esta regularidad en 1962 con datos trimestrales de los
+ Estados Unidos.
+ 
+\end_layout
+
+\begin_layout Standard
+Okun tomó tres vías diferentes 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "okun1963potential"
+
+\end_inset
+
+ para estimar la relación entre la tasa de paro y de crecimiento de la producció
+n.
+\end_layout
+
+\begin_layout Subsubsection
+Ley de Okun I
+\end_layout
+
+\begin_layout Standard
+En primer lugar, Okun estimó un modelo que relacionaba las variaciones de
+ la tasa de paro en dos períodos consecutivos y la tasa de crecimiento de
+ la producción
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{t}-u_{t-1}=\beta_{0}-\beta_{Y}g_{Yt}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\begin_inset Formula $u_{t}$
+\end_inset
+
+ es la tasa de paro en el periodo y la tasa de crecimiento de la producción
+ es 
+\begin_inset Formula $g_{Y}$
+\end_inset
+
+.
+ Si la variación de la tasa de paro es nula, 
+\begin_inset Formula $\overline{g}_{Yt}$
+\end_inset
+
+ es la tasa de crecimiento de la producción necesaria para mantener el nivel
+ de empleo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\beta_{0}-\beta_{Y}g_{Yt}=0;\;\overline{g}_{Yt}=\frac{\beta_{0}}{\beta_{Y}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sustituyendo en la ecuación original se obtiene que la variación de la tasa
+ de paro es proporcional a la diferencia entre la tasa de crecimiento real
+ y natural de la producción.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{t}-u_{t-1}=-\beta_{Y}\left(g_{Yt}-\overline{g}_{Yt}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+generalizaciones
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta u_{t}=-\beta_{0}+\sum_{1}^{P}{\beta_{up}\Delta u_{t-p}}+\sum_{0}^{Q}{\beta_{yp}\Delta\ln{\left(y_{t-q}\right)}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta u_{t}=\beta_{0}+\beta_{1}\Delta y_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Metodología
+\end_layout
+
+\begin_layout Subsection
+Estacionariedad
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:section"
+
+\end_inset
+
+En el análisis econométrico de series temporales es de vital importancia
+ determinar si el proceso estocástico con el que se trabaja es estacionario
+ o integrado de orden 
+\begin_inset Formula $n$
+\end_inset
+
+ pues de esto va a depender la validez asintótica de toda la modelización
+ que se lleve a cabo.
+ Para clasificar siguiendo este procedimiento a una serie estocástica hay
+ que fijarse en los momentos de las distribuciones objeto de estudio ya
+ que es imposible conocer con certeza la función de distribución conjunta
+ del proceso estocástico en cada periodo 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Formalmente se define a un proceso estocástico como un conjunto de variables
+ aleatorias que se suceden en el tiempo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z=\left\{ Z_{1},\, Z_{2},\,\dots,\, Z_{T}\right\} 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En el que se definen sus momentos como:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+E\left(Z_{t}\right)=\mu_{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+var\left(Z_{t}\right)=\sigma_{t}^{2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang english
+\begin_inset Formula 
+\[
+cov\left(Z_{t},Z_{t+u}\right)=\sigma_{t,t+u}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se puede afirmar que un proceso estocástico es estacionario si se cumple
+ que la esperanza y varianza son constantes a lo largo del tiempo y que
+ la covarianza entre variables en distintos momentos de tiempo solo depende
+ del desfase entre ellas.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mu_{t}=\mu
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sigma_{t}^{2}=\sigma^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sigma_{t,t+u}=\sigma_{t,t-u}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pero generalmente las variables económicas no son estacionarias ya que presentan
+ algún tipo de tendencia que provoca que la media no sea constante en el
+ tiempo.
+ Una serie económica es integrada de orden 
+\begin_inset Formula $d$
+\end_inset
+
+ si se puede transformar en una serie estacionaria aplicando diferencias
+ de orden 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ En concreto, si 
+\begin_inset Formula $Z_{t}$
+\end_inset
+
+ es una serie estacionaria y la serie 
+\begin_inset Formula $Y_{t}$
+\end_inset
+
+ es 
+\begin_inset Formula $I(1)$
+\end_inset
+
+, tenemos que:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z_{t}=Y_{t}-Y_{t-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Esta expresión se corresponde con el esquema de un proceso autorregresivo
+ cuyo parámetro 
+\begin_inset Formula $\phi=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Z_{t}=Y_{t}-\phi Y_{t-1},\,\phi=1
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A esta situación se la conoce como raíz unitaria y es la base para los test
+ de detección de estacionariedad propuestos por Dickey y Fuller.
+\end_layout
+
+\begin_layout Standard
+Por tanto, una serie 
+\begin_inset Formula $Y_{t}$
+\end_inset
+
+ será integrada de orden uno si 
+\begin_inset Formula $\phi=1$
+\end_inset
+
+ y estacionaria si el parámetro es menor.
+ Pero esto solo puede aplicarse en procesos 
+\begin_inset Formula $AR(1)$
+\end_inset
+
+.
+ Dickey y Fuller también plantearon un test generalizado comúnmente conocido
+ como contraste aumentado de Dickey-Fuller (ADF) que se basa en la misma
+ metodología pero añade términos autorregresivos hasta que desaparece la
+ autocorrelación que habría surgido al intentar contrastar una serie que
+ no siguiera un proceso autorregresivo de primer orden con el contraste
+ DF.
+\end_layout
+
+\begin_layout Standard
+Analíticamente el contraste ADF es
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta Y_{t}=\beta_{0}+\delta Y_{t-1}+\sum_{i=1}^{q}{\gamma_{i}\Delta Y_{t-1}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En este caso la hipótesis nula es 
+\begin_inset Formula $H_{0}:\delta=0$
+\end_inset
+
+ que indicaría la presencia de raíces unitarias frente a la hipótesis alternativ
+a de estacionariedad 
+\begin_inset Formula $H_{1}:\delta<0$
+\end_inset
+
+.
+ En este contraste, 
+\begin_inset Formula $\delta=\phi-1$
+\end_inset
+
+ por lo que se sigue contrastando
+\begin_inset Formula $\phi=1$
+\end_inset
+
+.
+ Este cambio de variables se produce en el test DF como resultado de una
+ transformación para evitar un sesgo en la estimación MCO.
+\end_layout
+
+\begin_layout Standard
+El test ADF tiene una variante que se utiliza cuando la serie presenta una
+ tendencia.
+ En ese caso habría que añadir la variable tiempo como un regresor más de
+ la ecuación:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta Y_{t}=\beta_{0}+\alpha t+\delta Y_{t-1}+\sum_{i=1}^{q}{\gamma_{i}\Delta Y_{t-1}}+\varepsilon_{t}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El contraste ADF no es el único que permite estudiar la estacionariedad
+ de una serie temporal pero sí es el más usado.
+ También es muy habitual utilizar análisis gráficos previos que pueden guiar
+ en la especificación del modelo.
+ Los gráficos son muy útiles para detectar la existencia de tendencias en
+ las series temporales, así como la constancia o ausencia de ella en media
+ y varianza.
+ Los correlogramas que representan las funciones de autocorrelación total
+ y parcial pueden servir para caracterizar el tipo de esquema autorregresivo
+ que sigue la serie aunque su uso es desaconsejado en modelos ARMA por su
+ creciente complejidad.
+ De cualquier modo, son herramientas que hay que tener en cuenta a la hora
+ de analizar series temporales por su gran capacidad explicativa.
+\end_layout
+
+\begin_layout Subsubsection
+Cointegración
+\end_layout
+
+\begin_layout Standard
+Puede parecer que la existencia de raíces unitarias no es ningún problema
+ ya que se puede resolver fácilmente aplicando diferencias pero lo que esto
+ produce es un cambio en la especificación del modelo que afecta a su interpreta
+ción.
+ Lo que verdaderamente se contrasta en el caso de que no haya estacionariedad
+ no es una variable sino la variación que esta ha sufrido en el último periodo
+ por lo que no es correcto utilizar este enfoque para hacer análisis de
+ largo plazo.
+\end_layout
+
+\begin_layout Standard
+La Teoría Económica no puede estar limitada a hacer estudios cortoplacistas
+ aunque sabemos que la mayor parte de variables e indicadores económicos
+ presentan un problema de estacionariedad.
+ 
+\end_layout
+
+\begin_layout Standard
+Afortunadamente, Engle y Granger encontraron una forma de superar este obstáculo.
+ Su gran aportación fue recompensada con el Premio Nobel de Economía 2003.
+\end_layout
+
+\begin_layout Standard
+Su concepto de conintegración explica que entre dos variables con el mismo
+ orden de integración existe una combinación lineal estacionaria.
+ 
+\end_layout
+
+\begin_layout Standard
+De forma general, un vector de variables 
+\begin_inset Formula $X_{T}=\left(X_{1t},\, X_{2t},\,\dots,\, X_{kt}\right)$
+\end_inset
+
+ en el que cada variable 
+\begin_inset Formula $X_{it}\sim I(d)$
+\end_inset
+
+ entonces 
+\begin_inset Formula $\exists X_{T\eta}\sim I(0)$
+\end_inset
+
+ denominado vector de cointegración.
+\end_layout
+
+\begin_layout Standard
+El procedimiento que siguen Engle y Granger para determinar la cointegración
+ de series temporales parte del test ADF para comprobar sus órdenes de integraci
+ón.
+ Sólo si coinciden se puede estimar el modelo por MCO.
+\end_layout
+
+\begin_layout Section
+Resultados
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scattersus.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+variable del desempleo a nivel, primera y segunda diferencias
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename scattersys.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+variable de la producción a nivel, primera y segunda diferencias
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramy.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramd_y.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+correlogramas de la serie y
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramu.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename correlogramd_u.eps
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+correlogramas de la serie u
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+ADF para la segunda diferencia del PIB
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 66,7485 for k = 09
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 63,1801 for k = 08
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 58,6245 for k = 07
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 57,7221 for k = 06
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 62,5599 for k = 05
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 56,9344 for k = 04
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 53,8411 for k = 03
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 51,7692 for k = 02
+\end_layout
+
+\begin_layout LyX-Code
+MIC = 51,4557 for k = 01
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Contraste aumentado de Dickey-Fuller para d_d_y
+\end_layout
+
+\begin_layout LyX-Code
+incluyendo un retardo de (1-L)d_d_y
+\end_layout
+
+\begin_layout LyX-Code
+(el máximo fue 9, el criterio AIC modificado)
+\end_layout
+
+\begin_layout LyX-Code
+tamaño muestral 29
+\end_layout
+
+\begin_layout LyX-Code
+hipótesis nula de raíz unitaria: a = 1
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+   contraste con constante 
+\end_layout
+
+\begin_layout LyX-Code
+   modelo: (1-L)y = b0 + (a-1)*y(-1) + ...
+ + e
+\end_layout
+
+\begin_layout LyX-Code
+   Coef.
+ de autocorrelación de primer orden de e: 0,002
+\end_layout
+
+\begin_layout LyX-Code
+   valor estimado de (a - 1): -1,36848
+\end_layout
+
+\begin_layout LyX-Code
+   Estadístico de contraste: tau_c(1) = -4,97872
+\end_layout
+
+\begin_layout LyX-Code
+   valor p asintótico 2,256e-05
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Regresión aumentada de Dickey-Fuller
+\end_layout
+
+\begin_layout LyX-Code
+MCO, usando las observaciones 1984-2012 (T = 29)
+\end_layout
+
+\begin_layout LyX-Code
+Variable dependiente: d_d_d_y
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+             Coeficiente   Desv.
+ Típica  Estadístico t  Valor p 
+\end_layout
+
+\begin_layout LyX-Code
+  
+\end_layout
+
+\begin_layout LyX-Code
+  const      −8,33294e+08  2,58070e+09      −0,3229     0,7494  
+\end_layout
+
+\begin_layout LyX-Code
+  d_d_y_1    −1,36848      0,274865         −4,979      2,26e-05 ***
+\end_layout
+
+\begin_layout LyX-Code
+  d_d_d_y_1   0,307014     0,190416          1,612      0,1190  
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+  AIC: 1439,71   BIC: 1443,82   HQC: 1441
+\end_layout
+
+\begin_layout Subsection
+ADF para la segunda diferencia del desempleo
+\end_layout
+
+\begin_layout Section
+Conclusiones
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Referencias bibliográficas
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "tfg"
+options "apalike"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Anexos.
+ 
+\end_layout
+
+\end_body
+\end_document
